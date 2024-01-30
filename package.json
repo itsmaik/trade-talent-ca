@@ -1,0 +1,18 @@
+{
+  "name": "trade-talent",
+  "version": "1.0.0",
+  "description": "A social media platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass src/scss:dist/css",
+    "watch": "sass --watch src/scss:dist/css & live-server"
+  },
+  "keywords": [],
+  "author": "Maik Cavalcante dos Santos",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "sass": "^1.70.0"
+  }
+}
