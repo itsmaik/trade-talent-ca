@@ -1,29 +1,32 @@
-import authServices from '../../services/authServices.mjs';
-import redirect from '../../utils/redirect.mjs';
+import authServices from "../../services/authServices.mjs";
+import handleLoading from "../../utils/handleLoading.mjs";
+import handleUserRedirect from "../../utils/handleUserRedirect.mjs";
 
-document.addEventListener ('DOMContentLoaded', () => {
+export default function LoginController() {
   const registerForm = document.querySelector('#login-form');
 
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    handleLoading(true);
+    
     const emailInput = document.querySelector('#email');
     const passwordInput = document.querySelector('#password');
 
     const userData = {
       email: emailInput.value.trim(),
-      password: passwordInput.value.trim(),
+      password: passwordInput.value,
     };
 
     try {
-      const registrationResponse = await authServices.login({ ... userData});
-
-      console.log('Login successful', registrationResponse);
-      redirect()
+      await authServices.login({ ...userData });
+      handleUserRedirect();
+      console.log("Login Successful")
     } catch (error) {
-      // throw new Error(error);
       console.error('Error during login:', error);
       alert('Login failed: ' + error.message);
+    } finally {
+      handleLoading(false);
     }
   });
-});
+}

@@ -1,47 +1,42 @@
-import authServices from '../../services/authServices.mjs';
-// import validateInputs from '../../utils/validateInputs.mjs';
-import redirect from '../../utils/redirect.mjs';
+import authServices from "../../services/authServices.mjs";
+import handleUserRedirect from "../../utils/handleUserRedirect.mjs";
+import handleLoading from "../../utils/handleLoading.mjs";
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function RegisterController() {
   const registerForm = document.querySelector('#register-form');
-
+  
 
   registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    
+    handleLoading(true);
 
-    const nameInput = document.querySelector('#name');
-    const emailInput = document.querySelector('#email');
-    const passwordInput = document.querySelector('#password');
+    const nameInput = registerForm.querySelector('#name');
+    const emailInput = registerForm.querySelector('#email');
+    const passwordInput = registerForm.querySelector('#password');
 
     const userData = {
       name: nameInput.value.trim(),
       email: emailInput.value.trim(),
-      password: passwordInput.value.trim(),
+      password: passwordInput.value,
     };
 
     try {
       const registrationResponse = await authServices.register(userData);
 
-      await authServices.login({
-        email: userData.email,
-        password: userData.password,
+      await authServices.login({ 
+        email: userData.email, 
+        password: userData.password 
       });
 
-      console.log('Registration successful', registrationResponse);
-
-      redirect();
+      handleUserRedirect();
+      console.log("Registration Successful")
     } catch (error) {
-      // throw new Error(error)
+      // throw new Error(error);
       console.error('Error during registration:', error);
       alert('Registration failed: ' + error.message);
+    } finally {
+      handleLoading(false);
     }
-  });
-
-  // const formInputs = registerForm.querySelectorAll('.input.form-control')
-
-  // formInputs.forEach(input => {
-  //   input.addEventListener('blur', () => {
-  //     validateInputs(input);
-  //   })
-  // })
-});
+  }); 
+};
