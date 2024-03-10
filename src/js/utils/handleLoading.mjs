@@ -1,7 +1,6 @@
-
 export default function handleLoading(isLoading) {
   const loaderModalHtml = isLoading ? `
-    <div class="modal fade" id="loaderModal" tabindex="-1" aria-labelledby="loaderModalLabel" aria-hidden="true">
+    <div style="z-index: 99999;" class="modal fade" id="loaderModal" tabindex="2" aria-labelledby="loaderModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered mw-100 h-100 m-0">
         <div class="modal-content h-100 bg-opacity-25 bg-dark">
           <div class="modal-body text-center d-flex justify-content-center align-items-center">

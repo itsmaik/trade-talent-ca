@@ -10,17 +10,68 @@
       defer
       src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
     ></script>
-    <script defer type="module" src="/src/utils/handleUserRedirect.js"></script>
+    <script defer type="module" src="/src/js/utils/handleUserRedirect.mjs"></script>
   </head>
 
 
   <body>
     <!-- Navigation Bar -->
 
+    <div class="modal fade" id="edit-post-modal" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Form for post in  Modal -->
+            <form id="edit-post-form">
+              <div class="mb-3">
+                <label for="postTitle" class="form-label">Post Title</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Write your title here">
+              </div>
+              <div class="mb-3">
+                <label for="postComment" class="form-label">Share your ideas</label>
+                <input type="text" class="form-control" id="postComment" placeholder="Write your post here">
+              </div>
+              <div class="mb-3">
+                <label for="postFile" class="form-label"> Share your momments </label>
+                <input type="text" class="form-control" id="postFile" placeholder="Insert the image URL here">
+              </div>
+        
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary edit-post" data-bs-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModal">Delete Post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete? The post will be lost forever.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary confirm-delete-post" data-bs-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <header> 
       <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-lg-4 d-flex justify-content-between px-4 px-lg-5">
 
-        <a class="navbar-brand col-lg-2" href="#">
+        <a class="navbar-brand col-lg-2" href="/pages/feed/">
           <img src="/images/logo-mobile.svg" alt="logo" class="logo">
         </a>
 

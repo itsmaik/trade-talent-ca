@@ -1,14 +1,22 @@
-import loginController from '../controllers/auth/loginController.mjs'
-import logoutController from '../controllers/auth/logoutController.mjs';
-import registerController from "../controllers/auth/registerController.mjs";
-import createPostsController from '../controllers/posts/createPostsController.mjs';
-import searchController from '../controllers/posts/searchController.mjs';
-import postsServices from '../services/postsServices.mjs';
+import LoginController from '../controllers/auth/LoginController.mjs'
+import { accessToken } from "../utils/storageUtil.mjs";
+import LogoutController from '../controllers/auth/LogoutController.mjs';
+import RegisterController from "../controllers/auth/RegisterController.mjs";
+import CreatePostController from '../controllers/posts/createPostsController.mjs';
+import FilterController from '../controllers/posts/filterController.mjs';
+import SearchController from '../controllers/posts/SearchController.mjs';
+import SinglePostController from '../controllers/posts/singlePostController.mjs';
+import ProfileController from '../profile/profileController.mjs';
+import PostsServices from '../services/postsServices.mjs';
+import ProfileServices from '../services/profileServices.mjs';
 import normalizePath from "./normalizePath.mjs";
+import EditPostController from '../controllers/posts/editPostController.mjs';
+import createPostTemplate from '../templates/post.mjs';
+import DeletePostController from '../controllers/posts/deletePostController.mjs';
 
 const handleUserRedirect = () => {
   document.addEventListener('DOMContentLoaded', async () => {
-    const userLogged = localStorage.getItem('accessToken');
+    const userLogged = accessToken;
 
     const currentPath = window.location.pathname === "/" ?
       "/" : normalizePath(window.location.pathname);
@@ -32,20 +40,45 @@ const handleUserRedirect = () => {
     // Control when and where to call the respective login or register function based on the url path
     // (this way will only load/take memory to run the right js functions and not unnecessary ones)
     if (!userLogged && (currentPath === allowedPaths[0] || currentPath === allowedPaths[1])) {
-      loginController();
+      LoginController();
     } else if (!userLogged && currentPath === allowedPaths[2]) {
-      registerController();
+      RegisterController();
     }
 
     if (userLogged) {
-      createPostsController();
-      await postsServices.getAll()
-      searchController()
-      logoutController()
+      CreatePostController();
+
+      if (window.location.pathname.split('/').includes('feed')) {
+        await PostsServices.getAll();
+      }
+
+      if (window.location.pathname.split('/').includes('profile')) {
+        await ProfileServices.getAll();
+      }
+
+      ProfileController();
+      SearchController();
+      LogoutController();
+      FilterController();
+      SinglePostController();
+      DeletePostController();
+      EditPostController();
+    }
+
+    if (window.location.pathname.slice('/').includes('singlePost')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('id');
+      const uniquePost = await PostsServices.getById(postId)
+
+      const postsList = document.getElementById('posts-list');
+      postsList.innerHTML = '';
+
+      const postTemplate = createPostTemplate({ ...uniquePost });
+      postsList.innerHTML = postTemplate;
     }
   });
 };
 
 handleUserRedirect();
 
-export default handleUserRedirect;
+export default handleUserRedirect; 

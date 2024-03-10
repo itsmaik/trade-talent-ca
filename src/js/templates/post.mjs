@@ -1,9 +1,11 @@
 import getTimeAgo from "../utils/getTimeAgo.mjs";
+import { currentUser } from "../utils/storageUtil.mjs";
 
-export default function createPostTemplate({ title, created, body, media, author }) {
+export default function createPostTemplate({ title, created, body, media, author, id }) {
+  const user = currentUser;
   return `
     <div class="card mb-3">
-      <div class="card-header">
+      <div class="card-header d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
           <i class="bi bi-person-circle fs-2"></i>
   
@@ -12,12 +14,28 @@ export default function createPostTemplate({ title, created, body, media, author
             <p class="card-subtitle ms-3 text-muted mt-n1 fs-12-px">${getTimeAgo(created)}</p>
           </div>
         </div>
+        
+          <div class="dropdown dropdown-post-actions">
+            <i class="btn bi bi-box-arrow-up-right" data-post-id="${id}"></i>
+            ${user.name === author.name ? 
+              (
+                `<button class="btn custom-dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list-ul"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><button type="button" class="dropdown-item edit-button" data-post-id="${id}" data-bs-toggle="modal" data-bs-target="#edit-post-modal">Edit</button></li>
+                  <li><button class="btn dropdown-item delete-button" type="button" data-post-id="${id}" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal">Delete</button>
+                  </li>
+                </ul>`
+              ) : ""
+            }
+          </div>
       </div>
       <div class="card-body">
         <h6 class="card-title mb-3">${title}</h6>
         ${body ? `<p class="card-text">${body}</p>` : ''}
         
-        ${media ? `<img src="${media.url}" class="card-img-top mb-3" alt="...">` : ''}
+        ${media ? `<img src="${media.url}" class="card-img-top mb-3" alt="..." style="height: auto; max-height: 450px; object-fit: cover;">` : ''}
         <!-- Comment Box -->
         <i class="bi bi-hand-thumbs-up me-2 icon-circle"></i>
         <i class="bi bi-chat-right me-2 icon-circle"></i>
@@ -38,7 +56,6 @@ export default function createPostTemplate({ title, created, body, media, author
             Post
           </button>
         </div>
-      </div>
     </div>
   `;
 }

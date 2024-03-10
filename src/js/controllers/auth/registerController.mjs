@@ -22,19 +22,17 @@ export default function RegisterController() {
     };
 
     try {
-      const registrationResponse = await authServices.register(userData);
+      await authServices.register(userData);
 
       await authServices.login({ 
         email: userData.email, 
         password: userData.password 
       });
 
-      handleUserRedirect();
+      window.location.reload();
       console.log("Registration Successful")
     } catch (error) {
-      // throw new Error(error);
       console.error('Error during registration:', error);
-      alert('Registration failed: ' + error.message);
     } finally {
       handleLoading(false);
     }
