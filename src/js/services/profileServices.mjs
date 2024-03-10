@@ -25,7 +25,6 @@ const ProfileServices = {
 
       const response = await fetch(`${BASE_API_URL}/social/profiles/${currentUser.name}/posts?_author=true`, options);
       const responseData = await response.json();
-      console.log(responseData.data);
 
       originalPosts = responseData.data;
 

@@ -30,9 +30,9 @@ export default function RegisterController() {
       });
 
       window.location.reload();
-      console.log("Registration Successful")
+      alert("Registration Successful")
     } catch (error) {
-      console.error('Error during registration:', error);
+      alert('Error during registration:', error);
     } finally {
       handleLoading(false);
     }

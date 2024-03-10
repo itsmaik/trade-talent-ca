@@ -5,7 +5,6 @@ import DeletePostController from "../posts/deletePostController.mjs";
 export default function EditPostController() {
   const editBtn = document.querySelectorAll('.dropdown-post-actions .edit-button');
   const confirmationModalBtn = document.querySelector('#edit-post-modal button.edit-post')
-  console.log("editBtn", editBtn)
   let title = document.querySelector('#edit-post-form #postTitle');
   let body = document.querySelector('#edit-post-form #postComment');
   let media = document.querySelector('#edit-post-form #postFile');
@@ -20,8 +19,6 @@ export default function EditPostController() {
       const postId = btn.dataset.postId;
 
       const currentPost = await PostsServices.getById(postId)
-      console.log("currentPost", currentPost)
-
 
       title.value = currentPost.title ?? ''
       body.value = currentPost.body ?? ''

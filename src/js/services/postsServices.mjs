@@ -35,7 +35,6 @@ const PostsServices = {
 
       const response = await fetch(`${BASE_API_URL}/social/posts`, options);
 
-      console.log("response", response)
       
       if (window.location.pathname.split('/').includes('feed')) {
         await PostsServices.getAll()
@@ -66,7 +65,6 @@ const PostsServices = {
 
       const response = await fetch(`${BASE_API_URL}/social/posts?_author=true`, options);
       const responseData = await response.json();
-      console.log(responseData.data);
 
       originalPosts = responseData.data;
 
@@ -99,7 +97,6 @@ const PostsServices = {
 
       const response = await fetch(`${BASE_API_URL}/social/posts/${id}?_author=true`, options);
       const responseData = await response.json();
-      console.log(responseData.data);
 
       return responseData.data;
 
@@ -111,7 +108,6 @@ const PostsServices = {
   },
 
   async delete(id) {
-    console.log("id", id)
     const apiKey = await getApiKey();
     const options = {
       method: 'DELETE',
@@ -147,8 +143,6 @@ const PostsServices = {
       };
 
       const response = await fetch(`${BASE_API_URL}/social/posts/${id}`, options);
-
-      console.log("response", response)
       
       if (window.location.pathname.split('/').includes('feed')) {
         await PostsServices.getAll()
@@ -193,7 +187,6 @@ const PostsServices = {
       }
   
       const data = await response.json();
-      console.log(data)
       // Clear the posts list
       postsList.innerHTML = '';
   
@@ -241,7 +234,6 @@ const PostsServices = {
       }
 
       const data = await response.json();
-      console.log(data);
 
       // Sort the posts based on filter type
       const sortedPosts = sortPosts(data.data, filterType);
@@ -290,7 +282,6 @@ const PostsServices = {
       }
 
       const data = await response.json();
-      console.log(data);
 
       const filteredPosts = data.data
 

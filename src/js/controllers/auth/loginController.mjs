@@ -24,7 +24,7 @@ export default function LoginController() {
       console.log("Login Successful")
     } catch (error) {
       console.error('Error during login:', error);
-      alert('Login failed: ' + error.message);
+      alert('Login failed: Try a valid email and password');
     } finally {
       handleLoading(false);
       window.location.reload();

@@ -19,8 +19,6 @@ export default function CreatePostController() {
     });
   });
 
-  console.log("SSSSS");
-
   buttonSubmit.addEventListener("click", async (event) => {
     event.preventDefault();
 

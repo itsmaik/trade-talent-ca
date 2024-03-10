@@ -4,7 +4,6 @@ import handleLoading from "../../utils/handleLoading.mjs";
 export default function DeletePostController() {
   const deleteBtn = document.querySelectorAll('.dropdown-post-actions .delete-button');
   const confirmationModalBtn = document.querySelector('#confirm-delete-modal .confirm-delete-post')
-  console.log("deleteBtn", deleteBtn)
   if (deleteBtn.length === 0) return;
 
   deleteBtn.forEach(btn => {
