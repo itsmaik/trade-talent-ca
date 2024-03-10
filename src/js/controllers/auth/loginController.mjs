@@ -27,6 +27,7 @@ export default function LoginController() {
       alert('Login failed: ' + error.message);
     } finally {
       handleLoading(false);
+      window.location.reload();
     }
   });
 }

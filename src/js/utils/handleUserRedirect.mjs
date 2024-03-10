@@ -4,7 +4,6 @@ import registerController from "../controllers/auth/registerController.mjs";
 import createPostsController from '../controllers/posts/createPostsController.mjs';
 import searchController from '../controllers/posts/searchController.mjs';
 import postsServices from '../services/postsServices.mjs';
-import handleLoading from "./handleLoading.mjs";
 import normalizePath from "./normalizePath.mjs";
 
 const handleUserRedirect = () => {
