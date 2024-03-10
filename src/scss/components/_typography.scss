@@ -1,0 +1,16 @@
+$fs-10-px: 0.625rem;  // Equivalent to 10px
+$fs-12-px: 0.75rem;   // Equivalent to 12px
+$fs-14-px: 0.875rem;  // Equivalent to 14px
+
+
+.fs-10-px {
+  font-size: $fs-10-px;  // Uses the 10px equivalent
+}
+
+.fs-12-px {
+  font-size: $fs-12-px;  // Uses the 12px equivalent
+}
+
+.fs-14-px {
+  font-size: $fs-14-px;  // Uses the 14px equivalent
+}
