@@ -15,7 +15,6 @@ export default async function getApiKey() {
 
     if (!apiKey) {
       throw new Error('API key not available');
-
     }
 
     return apiKeyData;

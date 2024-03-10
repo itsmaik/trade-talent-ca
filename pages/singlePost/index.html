@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the latest posts from a diverse community on Trade-Talent. Connect, share, and engage with users from all over the world. Stay updated with trending talents and offers.">
+    <meta name="description" content="Dive deeper into any specific post on Trade-Talent. Discover unique insights, stories, and talents shared by our global community. Engage directly with the content that interests you and join the conversation.">
     <title>Feed | Trade-Talent</title>
     <link rel="stylesheet" href="../../dist/css/index.css">
     <script
@@ -66,155 +66,13 @@
       </nav>
     </header>
 
-    <!-----------------Search and Sort----------------->
-
-    <div class="d-flex justify-content-between d-lg-none bg-secondary py-2">
-      <div class="dropdown filters">
-        <button
-          class="btn text-light dropdown-toggle"
-          type="button"
-          id="sortDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Sort by
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-          <li><button type="button" class="dropdown-item latest">Latest</button></li>
-          <li><button type="button" class="dropdown-item oldest">Oldest</button></li>
-          <!-- <li><div type="button" class="dropdown-item tags-1 tags"></div></li> -->
-        </ul>
-      </div>
-      <div class="d-flex align-items-center">
-        <i class="bi bi-plus-circle fs-3 icon-white" data-bs-toggle="modal" data-bs-target="#new-post-modal"></i>
-        <button class="btn text-light" type="button" data-bs-toggle="modal" data-bs-target="#new-post-modal">Add new post</button>
-      </div>
-    </div>
-
-        <!---------------------------- Modal--------------------------------- -->
-    <div class="modal fade" id="new-post-modal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="newPostModalLabel">New Post</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Form for post in  Modal -->
-            <form id="new-post-form">
-              <div class="mb-3">
-                <label for="postTitle" class="form-label">Post Title</label>
-                <input type="text" class="form-control" id="postTitle" placeholder="Write your title here">
-              </div>
-              <div class="mb-3">
-                <label for="postComment" class="form-label">Share your ideias</label>
-                <input type="text" class="form-control" id="postComment" placeholder="Write your post here">
-              </div>
-              <div class="mb-3">
-                <label for="postFile" class="form-label"> Share your momments </label>
-                <input type="text" class="form-control" id="postFile" placeholder="Insert the image URL here">
-              </div>
-        
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary add-new-post" data-bs-dismiss="modal">Save Post</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="confirmDeleteModal">Delete Post</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Are you sure you want to delete? The post will be lost forever.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary confirm-delete-post" data-bs-dismiss="modal">Confirm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!--------------------------------- Posts Feed ----------------------------------->
     <div class="container-fluid mt-3">
       <div class="row justify-content-around">
         <div class="col-lg-5 col-md-8 offset-lg-0">
-          <div
-            class="d-flex justify-content-between d-none d-lg-flex bg-secondary py-2 mb-4">
-            <div class="dropdown filters">
-              <button
-                class="btn text-light dropdown-toggle"
-                type="button"
-                id="sortDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Sort by
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                <li><button type="button" class="dropdown-item latest">Latest</button></li>
-                <li><button type="button" class="dropdown-item oldest">Oldest</button></li>
-                <!-- <li><div type="button" class="dropdown-item tags-2 tags"></div></li> -->
-                <!-- More sorting options -->
-              </ul>
-            </div>
-            <div class="d-flex align-items-center">
-              <i class="bi bi-plus-circle fs-3 icon-white" data-bs-toggle="modal" data-bs-target="#new-post-modal"></i>
-              <button class="btn text-light" type="button" data-bs-toggle="modal" data-bs-target="#new-post-modal">Add new post</button>
-            </div>
-          </div>
-
           <!-- Single Post -->
-          <div id="posts-list"></div>
-          
-          
+          <div id="posts-list" class="mt-4"></div>
           <!--------------------------- Posts Feed END ----------------------------------->
-        </div>
-
-        <!------------------------------ Porofile card --------------------------------->
-        <div class="card col-lg-3 d-none d-lg-block order-lg-first border-0">
-          <div class="card position-sticky sticky-lg-top top-0">
-            <div class="card-header text-center">
-              <!-- <p class="card-subtitle ms-3 text-muted">
-                @itsmemaik_
-              </p> -->
-              <i class="bi bi-person-circle fs-1"></i>
-
-              <div class="d-block">
-                <p class="card-title fs-3 ms-0 mb-0" id="profile-username"></p>
-              </div>
-            </div>
-            <div class="card-body text-center">
-              <p class="card-text">
-                A front-end developer student looking for coding help and
-                offering language lessons in exchange.
-              </p>
-              <div class="d-flex justify-content-around">
-                <button class="btn btn-secondary">Skill to teach</button>
-                <button class="btn btn-success">Skill to learn</button>
-              </div>
-              <div class="container text-lg-center d-flex justify-content-between mt-3">
-                <div>
-                  <p class="mb-0">6</p>
-                  <p>Post</p>
-                </div>
-                <div>
-                  <p class="mb-0">24</p>
-                  <p>Followers</p>
-                </div>
-                <div>
-                  <p class="mb-0">29</p>
-                  <p>Following</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!------------------------------ Trending card --------------------------------->

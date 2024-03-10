@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="View and manage your profile on Trade-Talent. Showcase your skills, experience, and projects to the community. Connect with opportunities tailored to your talent.">
   <title>Profile | Trade-Talent</title>
   <link rel="stylesheet" href="../../dist/css/index.css">
   <script defer src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script defer type="module" src="/src/js/utils/handleUserRedirect.mjs"></script>
+  <script defer type="module" src="/src/utils/handleUserRedirect.js"></script>
+
 </head>
 
 
@@ -55,7 +57,7 @@
               ><i class="bi bi-envelope me-1"></i>Inbox</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../index.html">Logout</a>
+            <button class="nav-link" id="logout">Logout</d>
           </li>
         </ul>
       </div>
@@ -70,16 +72,15 @@
       <div class="col-lg-8 col-md-8">
         
         <div class="d-flex justify-content-between d-none d-lg-flex bg-secondary py-2 mb-4">
-          <div class="dropdown">
+          <div class="dropdown filters">
               <button class="btn text-light dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   Sort by
               </button>
               <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                  <li><a class="dropdown-item" href="#">All posts</a></li>
-                  <li><a class="dropdown-item" href="#">Talent offers</a></li>
-                  <li><a class="dropdown-item" href="#">Talent seekers</a></li>
-                  <li><a class="dropdown-item" href="#">Trending talents</a></li>
-                  <!-- More sorting options -->
+                <li><button type="button" class="dropdown-item latest">Latest</button></li>
+                <li><button type="button" class="dropdown-item oldest">Oldest</button></li>
+                <!-- <li><div type="button" class="dropdown-item tags-2 tags"></div></li> -->
+                <!-- More sorting options -->
               </ul>
           </div>
           <div class="d-flex align-items-center">
@@ -98,137 +99,49 @@
               </div>
               <div class="modal-body">
                 <!-- Form for post in  Modal -->
-                <form>
+                <form id="new-post-form">
                   <div class="mb-3">
-                    <label for="postTitle" class="form-label">Share your ideias</label>
-                    <input type="text" class="form-control" id="postTitle" placeholder="Write your post here">
+                    <label for="postTitle" class="form-label">Post Title</label>
+                    <input type="text" class="form-control" id="postTitle" placeholder="Write your title here">
                   </div>
                   <div class="mb-3">
-                    <label for="postFile" class="form-label"> Share your moments </label>
-                    <input type="file" class="form-control" id="postFile">
+                    <label for="postComment" class="form-label">Share your ideias</label>
+                    <input type="text" class="form-control" id="postComment" placeholder="Write your post here">
+                  </div>
+                  <div class="mb-3">
+                    <label for="postFile" class="form-label"> Share your momments </label>
+                    <input type="text" class="form-control" id="postFile" placeholder="Insert the image URL here">
                   </div>
             
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Post</button>
+                <button type="button" class="btn btn-primary add-new-post" data-bs-dismiss="modal">Save Post</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row justify-content-lg-around">
-          <!------------------------------ Posts Feed --------------------------------->
-          <div class="card mb-3 col-lg-5">
-            <div class="card-header">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person-circle fs-2"></i>
-                
-                <div class="d-block">
-                  <p class="card-title ms-3 mb-0">Posted by itsmaik</p>
-                  <p style="font-size: 12px;" class="card-subtitle ms-3 text-muted mt-n1">Posted 2 hours ago</p>
-                </div>
+        <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModal">Delete Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat, voluptatum eligendi architecto veniam beatae! Officiis odit reiciendis est error?</p>
-              <img src="/images/post-img.png" class="card-img-top mb-3" alt="...">
-              <!-- Comment Box -->
-              <i class="bi bi-hand-thumbs-up me-2 icon-circle"></i>
-              <i class="bi bi-chat-right me-2 icon-circle"></i>
-              <i class="bi bi-send me-2 icon-circle"></i>
-              <i class="bi bi-download me-2 icon-circle"></i>
-              <div class="input-group mb-3 mt-4">
-                  <input type="text" class="form-control" placeholder="Leave a comment..." aria-label="Comment">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+              <div class="modal-body">
+                <p>Are you sure you want to delete? The post will be lost forever.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary confirm-delete-post" data-bs-dismiss="modal">Confirm</button>
               </div>
             </div>
           </div>
+        </div>
 
-
-          <!------------------------------ Posts Feed --------------------------------->
-          <div class="card mb-3 col-lg-5">
-            <div class="card-header">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person-circle fs-2"></i>
-                
-                <div class="d-block">
-                  <p class="card-title ms-3 mb-0">Posted by itsmaik</p>
-                  <p style="font-size: 12px;" class="card-subtitle ms-3 text-muted mt-n1">Posted 2 hours ago</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat, voluptatum eligendi architecto veniam beatae! Officiis odit reiciendis est error?</p>
-              <img src="/images/post-img.png" class="card-img-top mb-3" alt="...">
-              <!-- Comment Box -->
-              <i class="bi bi-hand-thumbs-up me-2 icon-circle"></i>
-              <i class="bi bi-chat-right me-2 icon-circle"></i>
-              <i class="bi bi-send me-2 icon-circle"></i>
-              <i class="bi bi-download me-2 icon-circle"></i>
-              <div class="input-group mb-3 mt-4">
-                  <input type="text" class="form-control" placeholder="Leave a comment..." aria-label="Comment">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
-              </div>
-            </div>
-          </div>
-
-          <!------------------------------ Posts Feed ----------------------------------->
-        
-          <!-- Single Post -->
-          <div class="card mb-3 col-lg-5">
-            <div class="card-header">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person-circle fs-2"></i>
-                
-                <div class="d-block">
-                  <p class="card-title ms-3 mb-0">Posted by itsmaik</p>
-                  <p style="font-size: 12px;" class="card-subtitle ms-3 text-muted mt-n1">Posted 2 hours ago</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat, voluptatum eligendi architecto veniam beatae! Officiis odit reiciendis est error?</p>
-              <img src="/images/post-img.png" class="card-img-top mb-3" alt="...">
-              <!-- Comment Box -->
-              <i class="bi bi-hand-thumbs-up me-2 icon-circle"></i>
-              <i class="bi bi-chat-right me-2 icon-circle"></i>
-              <i class="bi bi-send me-2 icon-circle"></i>
-              <i class="bi bi-download me-2 icon-circle"></i>
-              <div class="input-group mb-3 mt-4">
-                  <input type="text" class="form-control" placeholder="Leave a comment..." aria-label="Comment">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
-              </div>
-            </div>
-          </div>
-
-          <!---------------------------- Posts Feed ----------------------------------->
-          <div class="card mb-3 col-lg-5">
-            <div class="card-header">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person-circle fs-2"></i>
-                
-                <div class="d-block">
-                  <p class="card-title ms-3 mb-0">Posted by itsmaik</p>
-                  <p style="font-size: 12px;" class="card-subtitle ms-3 text-muted mt-n1">Posted 2 hours ago</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat, voluptatum eligendi architecto veniam beatae! Officiis odit reiciendis est error?</p>
-              <img src="/images/post-img.png" class="card-img-top mb-3" alt="...">
-              <!-- Comment Box -->
-              <i class="bi bi-hand-thumbs-up me-2 icon-circle"></i>
-              <i class="bi bi-chat-right me-2 icon-circle"></i>
-              <i class="bi bi-send me-2 icon-circle"></i>
-              <i class="bi bi-download me-2 icon-circle"></i>
-              <div class="input-group mb-3 mt-4">
-                  <input type="text" class="form-control" placeholder="Leave a comment..." aria-label="Comment">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
-              </div>
-            </div>
-          </div>
+        <div class="row justify-content-lg-around" id="user-posts-list">
         </div>
       </div>
       
@@ -237,10 +150,10 @@
       <div class="card col-lg-3 order-first border-0 mb-3 col-md-6">
         <div class="card position-sticky sticky-lg-top top-0">
           <div class="card-header text-center">
-            <p class="card-subtitle ms-3 text-muted fs-12-px">@itsmemaik_</p>
+            <!-- <p class="card-subtitle ms-3 text-muted fs-12-px">@itsmemaik_</p> -->
             <i class="bi bi-person-circle  fs-1"></i>
             <div class="d-block">
-              <p class="card-title  fs-3 ms-3 mb-0">Maik Helland Olsen</p>
+              <p class="card-title  fs-3 ms-0 mb-0" id="profile-username"></p>
             </div>
           </div>
           <div class="card-body text-center">
@@ -266,10 +179,6 @@
           </div>
         </div>
       </div>
-
-      
-
-
     </div>
   </div>
 
